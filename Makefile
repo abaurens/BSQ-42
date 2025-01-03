@@ -6,36 +6,32 @@
 #    By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/23 03:04:00 by abaurens          #+#    #+#              #
-#    Updated: 2018/07/25 23:40:43 by abaurens         ###   ########.fr        #
+#    Updated: 2025/01/03 01:55:46 by abaurens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	bsq
+NAME = bsq
 
-SRC			=	bsq.c			\
-				math.c			\
-				main.c			\
-				file.c			\
-				print.c			\
-				errors.c		\
-				parsing.c		\
-				s_string.c		\
-				m_string.c		\
-				parsing_utils.c
+SRC  = bsq.c     \
+       main.c    \
+       print.c   \
+       utils.c   \
+       loading.c \
+       errors.c
 
-OBJ			=	$(SRC:.c=.o)
+OBJ     = $(SRC:.c=.o)
 
-INCLUDE		=	-I./include
+INCLUDE = -I./include
 
-CFLAGS		+=	$(INCLUDE) -W -Wall -Wextra -ansi -pedantic -Werror
+CFLAGS  +=  $(INCLUDE) -W -Wall -Wextra -ansi -pedantic -Werror -O3
 
-LDFLAGS		+=	#linkage flag
+LDFLAGS +=  #linkage flag
 
-RM			=	rm -rf
+RM      = rm -rf
 
-CC			=	gcc
+CC      = gcc
 
-LINKER		=	gcc
+LINKER  = gcc
 
 $(NAME):	$(OBJ)
 	$(LINKER) -o $(NAME) $(LDFLAGS) $(OBJ)

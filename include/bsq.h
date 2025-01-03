@@ -6,82 +6,66 @@
 /*   By: abaurens <abaurens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 03:32:11 by abaurens          #+#    #+#             */
-/*   Updated: 2018/07/25 01:32:25 by abaurens         ###   ########.fr       */
+/*   Updated: 2025/01/03 01:52:16 by abaurens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BSQ_H
 # define BSQ_H
 
+# include "types.h"
 # include "errors.h"
 
 # define READ_SIZE 8192
+# define CHARSET_SIZE 3
 
-typedef struct	s_square
+typedef struct
 {
-	short		x;
-	short		y;
-	short		size;
-}				t_square;
+  short x;
+  short y;
+  short size;
+} t_square;
 
-typedef struct	s_bsq
+typedef struct
 {
-	short		w;
-	short		h;
-	char		*chars;
-	char		*f_content;
-	short		**map;
-	t_square	s;
-}				t_bsq;
+  short     w;
+  short     h;
+  short     *max;
+  char      charset[CHARSET_SIZE + 1];
+  char      *map;
+  short     *matrix;
+} t_bsq;
 
 /*
-**	file.c
+**  loading.c
 */
-void			delete_bsq(t_bsq *bsq);
-char			*read_line(const int fd);
-t_errorc		convert_map(t_bsq *bsq);
-char			*read_file(const int fd, const char *valid_chars);
+void  place_square(t_bsq *const bsq);
+t_errorc find_square(t_bsq *const bsq);
 
 /*
-**	bsq.c
+**  bsq.c
 */
-t_errorc		bsq(const char *file);
+t_errorc  get_bsq(int fd, t_bsq *const bsq);
+t_errorc  find_square(t_bsq *const bsq);
+void      place_square(t_bsq *const bsq);
 
 /*
-**	s_string.c
+**  utils.c
 */
-int				ft_strlen(const char *str);
-int				idx_of(const char *str, const char c);
-char			contains(const char *str, const char c);
+int   ft_atolu(char *str);
+int   ft_strlen(const char *const str);
+void  ft_bzero(void *const ptr, size_t size);
+int   idx_of(const char *const str, char c);
+char  contains(const char *const str, char c);
 
 /*
-**	m_string.c
+**  print.c
 */
-void			ft_replace(char *str, const char c, const char d);
-char			*ft_strmcat(const char *s1, const char *s2, int l);
-short			*compute_l(const char *tmp, short l, const char *charset);
+void  ft_putchar(char c);
+void  ft_putstr(char *str);
+void  ft_putnbr(int number, int length);
 
-/*
-**	parsing.c
-*/
-t_errorc		get_bsq(const int fd, t_bsq *bsq);
-
-/*
-**	parsing_utils.c
-*/
-int				num_len(int nb);
-int				ft_atoi(char *str);
-
-/*
-**	print.c
-*/
-void			ft_putchar(char c);
-void			ft_putstr(char *str);
-void			print_bsq(t_bsq *bsq);
-
-/*
-**	math.c
-*/
-int				min(int x, int y);
+#define MIN(x, y) ((x) < (y) ? (x) : (y))
+#define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 #endif
